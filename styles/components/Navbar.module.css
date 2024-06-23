@@ -1,0 +1,27 @@
+.navbar {
+  height: 100px;
+  padding: 30px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 80%;
+  margin: 0px auto;
+}
+
+.logo {
+  font-weight: 700;
+  font-size: 25px;
+  color: #000;
+}
+
+.navLinks {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navLinks a {
+  margin: 0px 22px;
+  font-weight: 500;
+  color: black;
+}

@@ -1,0 +1,446 @@
+.groupSave {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.activeGroupSavings {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 30px;
+}
+
+.groupSaveBox {
+  background-color: #f0f0f0;
+  color: #000;
+  padding: 14px 18px;
+  border-radius: 14px;
+  margin-right: 10px;
+  width: 22%;
+}
+.groupSaveBox:hover {
+  background-color: #e3e3e3;
+}
+
+.groupIdAndMembers {
+  display: flex;
+  align-items: center;
+}
+
+.groupSaveBox img {
+  margin: 10px 0px;
+  width: 30px;
+  height: 30px;
+}
+
+.subDetails {
+  display: flex;
+  flex-direction: column;
+  margin-right: 18px;
+  margin-bottom: 14px;
+}
+
+.subDetails h4 {
+  color: #6d6d6d;
+  font-size: 13px;
+  margin-bottom: 8px;
+  font-weight: 400;
+}
+
+.subDetails p {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+/* SINGLE GROUP SAVE */
+
+.singleGroupSave {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.groupDetails {
+  margin: 20px 0px;
+  display: flex;
+}
+
+.singleGroupSaveBox {
+  margin-right: 6px;
+  background-color: #f0f0f0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 14px 15px;
+  border-radius: 20px;
+}
+
+.singleGroupSaveBox h4 {
+  margin-bottom: 10px;
+  font-size: 13px;
+  color: #4b4b4b;
+  font-weight: 400;
+}
+
+.singleGroupSaveBox img {
+  margin-right: 4px;
+}
+
+.singleGroupSaveBox div {
+  display: flex;
+  align-items: center;
+}
+
+.singleGroupSaveBox p {
+  font-weight: 500;
+}
+
+.selectView {
+  display: flex;
+  margin: 34px 0px;
+}
+
+.selectView p {
+  margin-right: 25px;
+}
+
+.selectedSection,
+.notselectedSection {
+  font-weight: 500;
+}
+
+.selectedSection {
+  color: #7516ea;
+}
+
+/* PROPOSAL */
+
+.proposalContainer {
+  display: flex;
+  width: 100%;
+}
+
+.proposalList {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  height: 300px;
+  overflow-y: auto;
+  height: calc(100vh - 320px);
+}
+
+.proposalList::-webkit-scrollbar {
+  width: 3px;
+}
+
+/* Track */
+.proposalList::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgb(203, 203, 203);
+  border-radius: 10px;
+}
+
+/* Handle */
+.proposalList::-webkit-scrollbar-thumb {
+  background: rgb(170, 170, 170);
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+.proposalList::-webkit-scrollbar-thumb:hover {
+  background: #272727;
+}
+
+.proposalBox,
+.selectedProposalBox {
+  background-color: #f0f0f0;
+  display: flex;
+  align-items: center;
+  border-radius: 12px;
+  width: 95%;
+  height: 90px;
+  padding-left: 14px;
+  margin-bottom: 10px;
+  flex-shrink: 0;
+}
+
+.selectedProposalBox {
+  background-color: #dbdbdb;
+}
+
+.proposalBox:hover {
+  background-color: #e3e3e3;
+}
+
+.proposalBoxDetails {
+  display: flex;
+  flex-direction: column;
+  margin-right: 18px;
+}
+
+.proposalBoxDetails h4 {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.proposalBoxDetails p {
+  font-weight: 500;
+  font-size: 13px;
+}
+
+.proposalDetails {
+  width: 60%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 28px;
+  margin-bottom: 20px;
+}
+
+.multipleDetails {
+  display: flex;
+}
+
+.detailsBox {
+  display: flex;
+  flex-direction: column;
+  margin-right: 30px;
+  margin-bottom: 16px;
+}
+
+.detailsBox h5 {
+  margin-bottom: 8px;
+  font-weight: 400;
+  color: #414141;
+  font-size: 13px;
+}
+
+.detailsBox p {
+  font-size: 16px;
+  font-weight: 500;
+  color: #000;
+}
+
+.detailsBox div {
+  display: flex;
+  align-items: center;
+}
+
+.detailsBox button {
+  border: none;
+  background-color: transparent;
+  border-bottom: 1px solid #000;
+  padding-bottom: 10px;
+}
+
+.detailsBox button:hover {
+  cursor: pointer;
+  scale: 1.02;
+}
+
+.acceptButton,
+.rejectButton {
+  border: none;
+  padding: 10px 15px;
+  font-size: 15px;
+  margin-right: 10px;
+  font-weight: 500;
+  color: #fff;
+  border-radius: 10px;
+}
+
+.acceptButton {
+  background-color: #07b60f;
+}
+
+.acceptButton:hover {
+  border: 0.5px solid #00000077;
+  background-color: #ffffff;
+  color: #07b60f;
+}
+
+.rejectButton {
+  background-color: #b60707;
+}
+
+.rejectButton:hover {
+  border: 0.5px solid #00000077;
+  background-color: #ffffff;
+  color: #b60707;
+}
+
+.recipientsInfo {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 30px;
+}
+
+.recipientsInfo button {
+  background-color: #000;
+  color: #fff;
+  padding: 6px;
+  border: none;
+  font-weight: 500;
+  margin-bottom: 13px;
+  border-radius: 10px;
+}
+
+.recipientsInfoHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+  width: 100%;
+}
+
+.recipientsInfoHeader h3,
+.recipientsInfoHeader p {
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.recipientTotalAmount {
+  display: flex;
+  align-items: center;
+}
+
+.recipientTotalAmount img {
+  width: 25px;
+  height: 25px;
+  margin-left: 10px;
+}
+
+.recipientsAndAmount {
+  display: flex;
+  margin-top: 10px;
+}
+
+.recipients {
+  margin-right: 30px;
+}
+
+.recipients p,
+.amounts p {
+  margin-bottom: 9px;
+  font-size: 15px;
+  font-weight: 500;
+}
+
+/* CREATE PROPOSAL */
+
+.createProposal {
+  display: flex;
+}
+
+.createProposalInput {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 30px;
+}
+
+.createProposalInput input {
+  margin-bottom: 15px;
+  width: 240px;
+}
+
+.addAmount {
+  display: flex;
+  align-items: center;
+}
+
+.addAmount input {
+  width: 120px;
+  margin-right: 10px;
+}
+
+.addAmount button {
+  background-color: #000;
+  color: #fff;
+  padding: 6px 9px;
+  border: none;
+  margin-top: -10px;
+  border-radius: 10px;
+  margin-right: 10px;
+}
+
+.addAmount button:hover {
+  background-color: #fff;
+  color: #000;
+  border: 0.5px solid #272727;
+}
+
+.createProposalInput textarea {
+  width: 300px;
+  margin-bottom: 10px;
+}
+
+.createProposalButton {
+  background-color: transparent;
+  border: none;
+  font-weight: 600;
+  margin-top: 20px;
+}
+
+.createProposalButton:hover {
+  color: #414141;
+  scale: 1.07;
+  cursor: pointer;
+}
+
+.proposeUnderline {
+  background-color: #000;
+  border-radius: 20px;
+  width: 60px;
+  height: 5px;
+  margin-top: 8px;
+}
+
+.topUpInput {
+  display: flex;
+  align-items: center;
+}
+
+.topUpInput input {
+  margin-right: 15px;
+}
+
+.topUpInput button {
+  border: none;
+  background-color: transparent;
+  border-bottom: 2px solid #414141;
+  padding-bottom: 6px;
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.topUpInput button:hover {
+  color: #414141;
+  border-bottom: 0.5px solid #000;
+  cursor: pointer;
+  scale: 1.04;
+}
+
+.membersList {
+  display: flex;
+  flex-direction: column;
+}
+
+.singleMember {
+  margin-bottom: 10px;
+  background-color: #f0f0f0;
+  width: 500px;
+  display: flex;
+  align-items: center;
+  padding: 17px 10px;
+  border-radius: 20px;
+}
+
+.singleMember p {
+  font-weight: 500;
+}
+
+.singleMember span {
+  margin-right: 10px;
+  color: #7516ea;
+  font-weight: 500;
+}

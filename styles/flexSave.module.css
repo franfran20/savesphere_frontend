@@ -1,0 +1,214 @@
+.flexSave {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.saveDetails {
+  display: flex;
+  align-items: center;
+  margin-top: 30px;
+  align-items: center;
+}
+
+.protocolDetails {
+  display: flex;
+  flex-wrap: wrap;
+  width: 35%;
+}
+
+.saveBoxes {
+  background-color: #f6f6f6;
+  padding: 25px 20px;
+  margin-right: 12px;
+  margin-bottom: 12px;
+  border-radius: 18px;
+}
+
+.saveBoxes p {
+  color: #000;
+  font-size: 14px;
+  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-bottom: 9px;
+}
+
+.saveBoxes div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.saveBoxes h2 {
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.saveBoxes h3 {
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.saveBoxes img {
+  width: 25px;
+  height: 25px;
+  margin-right: 9px;
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-left: 50px;
+}
+
+.userDetails .top {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.savingReason {
+  margin-left: 20px;
+}
+
+.userDetails .bottom {
+  display: flex;
+}
+
+.saveInteractions {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin-top: 35px;
+}
+
+.startSavings {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin: 0px 45px 25px 0px;
+  width: 50%;
+}
+
+.startSavings input {
+  margin-top: 20px;
+}
+
+.startSavings input:focus {
+  outline: none;
+}
+
+.startSavings textarea {
+  margin-top: 20px;
+  margin-right: 20px;
+  height: 70px;
+  width: 350px;
+}
+
+.amountAndBalance {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 20px;
+}
+
+.mtrgBalance {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.mtrgBalance div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.mtrgBalance h4 {
+  margin-bottom: 10px;
+  font-weight: 400;
+  font-size: 16px;
+}
+
+.mtrgBalance p {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.mtrgBalance img {
+  width: 25px;
+  height: 25px;
+}
+
+.topUpSavings {
+  margin: 0 25px 25px 0px;
+  width: 50%;
+}
+
+.amountTimeAndBalance {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 28px 0px;
+}
+
+.amountTimeAndBalance input {
+  margin-left: 20px;
+}
+
+.breakSavings {
+  margin-bottom: 35px;
+  margin-right: 40px;
+  width: 50%;
+}
+
+.warningText {
+  font-size: 14px;
+  color: #000000ba;
+  margin-top: 9px;
+}
+
+.breakDetails {
+  display: flex;
+  margin: 16px 0px;
+}
+
+.breakDetailsBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  margin-right: 20px;
+}
+
+.breakDetailsBox h4 {
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 9px;
+}
+
+.breakDetailsBox div {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.breakDetailsBox p {
+  font-weight: 600;
+  font-size: 17px;
+}
+
+.breakDetailsBox img {
+  width: 22px;
+  height: 22px;
+}
+
+.breakSavings button {
+  margin-top: 12px;
+}
