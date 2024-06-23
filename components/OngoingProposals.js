@@ -1,14 +1,26 @@
 import React, { useState } from "react";
 import styles from "../styles/groupSave.module.css";
 import {
+  GROUP_SAVE_ABI,
+  GROUP_SAVE_CONTRACT_ADDRESS,
   MOCK_GROUP_LIST,
   MOCK_PROPOSALS_FOR_GROUP_ONE,
 } from "@/utils/groupSave";
 import Image from "next/image";
+import { useReadContract } from "wagmi";
 
-export const OngoingProposals = () => {
+export const OngoingProposals = ({ groupId }) => {
   const [selectedProposal, setSelectedProposal] = useState(false);
   const [showRecipients, setShowRecipients] = useState(false);
+
+  const allGroupProposals = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getAllProposalsForGroup",
+    args: [groupId],
+  });
+
+  if (allGroupProposals.isFetched) console.log(allGroupProposals.data);
 
   return (
     <div className={styles.proposalContainer}>

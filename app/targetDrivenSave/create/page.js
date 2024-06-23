@@ -10,7 +10,7 @@ import {
 import { useState } from "react";
 import { useAccount, useBalance, useWriteContract } from "wagmi";
 import { MTRG_TOKEN_ADDRESS } from "@/utils";
-import { erc20Abi } from "viem";
+import { erc20Abi, maxUint256 } from "viem";
 
 export default function CreateTargetDrivenSave() {
   const [selectedType, setSelectedType] = useState(3);
@@ -63,10 +63,7 @@ export default function CreateTargetDrivenSave() {
                 abi: erc20Abi,
                 address: MTRG_TOKEN_ADDRESS,
                 functionName: "approve",
-                args: [
-                  TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
-                  userMTRGBalance && userMTRGBalance.data.value,
-                ],
+                args: [TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS, maxUint256],
               });
             }}
           >

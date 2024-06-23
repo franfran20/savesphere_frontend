@@ -214,7 +214,7 @@
 }
 
 .detailsBox p {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: #000;
 }
@@ -444,3 +444,148 @@
   color: #7516ea;
   font-weight: 500;
 }
+
+.createGroupSave {
+  width: 80%;
+  margin: 0px auto;
+}
+
+.approveAll {
+  display: flex;
+  align-items: center;
+}
+
+.approveAll button {
+  margin-left: 20px;
+  background-color: #fff;
+  border: 0.4px solid #272727;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.approveAll button:hover {
+  scale: 1.04;
+}
+
+.createDetailContainer {
+  display: flex;
+  margin-top: 30px;
+}
+
+.createInputSection {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+  margin-right: 65px;
+}
+
+.userBal {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 14px;
+}
+
+.userBal div {
+  display: flex;
+  align-items: center;
+}
+
+.userBal h5 {
+  font-size: 14px;
+  font-weight: 400;
+  color: #414141;
+  margin-bottom: 5px;
+}
+
+.userBal p {
+  font-weight: 600;
+}
+
+.createInputSection input {
+  width: 170px;
+  margin-bottom: 20px;
+}
+
+.createInputSection span {
+  color: #272727c8;
+  font-weight: 600;
+  font-size: 13px;
+  margin-bottom: 14px;
+}
+
+.addMember button {
+  border: none;
+  background-color: #000;
+  color: #fff;
+  margin-left: 12px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border-radius: 14px;
+}
+
+.addMember button:hover {
+  border: 1px solid #6d6d6d;
+  background-color: #fff;
+  color: #000;
+}
+
+.createGroupSaveBtn {
+  border: none;
+  font-weight: 600;
+  font-size: 15px;
+  background-color: transparent;
+  margin-top: 14px;
+  margin-bottom: 6px;
+}
+
+.createGroupSaveBtn:hover {
+  scale: 1.04;
+  color: #272727;
+  cursor: pointer;
+}
+
+.btnUnderline {
+  height: 4px;
+  background-color: #000;
+  width: 40px;
+  border-radius: 10px;
+}
+
+.membersSection {
+  display: flex;
+  flex-direction: column;
+  margin-top: 20px;
+}
+
+.membersHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.membersHeader h4 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.membersHeader h5 {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.addedMembers {
+  display: flex;
+  flex-direction: column;
+}
+
+.addedMembers p {
+  margin-bottom: 12px;
+}
+
+/* 1. 0x5F7FbE4bf8987FA77Ec6C22FD3f3d558B3b68D4e
+
+2. 0x52047DE4458AfaaFF7C6B954C63033A21EfCD2E6
+
+3. 0x79f85f6C4C926277Ef97370d6f89ab1D78F6A4f8 */

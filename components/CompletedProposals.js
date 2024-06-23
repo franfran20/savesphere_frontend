@@ -6,7 +6,7 @@ import {
 } from "@/utils/groupSave";
 import Image from "next/image";
 
-export const CompletedProposals = () => {
+export const CompletedProposals = ({ groupId }) => {
   const [selectedProposal, setSelectedProposal] = useState(false);
   const [showRecipients, setShowRecipients] = useState(false);
 

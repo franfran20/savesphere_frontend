@@ -275,4 +275,25 @@ const FLEX_SAVE_ABI = [
 
 const FLEX_SAVE_CONTRACT_ADDRESS = "0x9FAA0978666B45bACD623E1abD24EbC456bD018b";
 
-module.exports = { FLEX_SAVE_ABI, FLEX_SAVE_CONTRACT_ADDRESS };
+const getTimeSaved = (startTime, stopTime, currentTime) => {
+  const interval = stopTime - startTime;
+  const savedTime = currentTime - startTime;
+
+  const result = savedTime > interval ? interval : savedTime;
+  return result;
+};
+
+const getTimeLeft = (startTime, stopTime, currentTime) => {
+  const interval = stopTime - startTime;
+  const timeLeft = stopTime - currentTime;
+
+  const result = timeLeft > 0 ? timeLeft : 0;
+  return result;
+};
+
+module.exports = {
+  FLEX_SAVE_ABI,
+  FLEX_SAVE_CONTRACT_ADDRESS,
+  getTimeSaved,
+  getTimeLeft,
+};

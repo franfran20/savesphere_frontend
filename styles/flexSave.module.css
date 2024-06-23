@@ -96,7 +96,8 @@
 }
 
 .startSavings input {
-  margin-top: 20px;
+  margin-top: 12px;
+  margin-bottom: 9px;
 }
 
 .startSavings input:focus {
@@ -110,11 +111,15 @@
   width: 350px;
 }
 
+.startSavings button {
+  margin-top: 20px;
+}
+
 .amountAndBalance {
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  margin-bottom: 20px;
+  margin-bottom: 6px;
 }
 
 .mtrgBalance {
@@ -160,6 +165,7 @@
 
 .amountTimeAndBalance input {
   margin-left: 20px;
+  margin-right: 4px;
 }
 
 .breakSavings {
@@ -211,4 +217,21 @@
 
 .breakSavings button {
   margin-top: 12px;
+}
+
+.approveAll {
+  display: flex;
+  align-items: center;
+}
+
+.approveAll button {
+  margin-left: 20px;
+  background-color: #fff;
+  border: 0.4px solid #272727;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+
+.approveAll button:hover {
+  scale: 1.04;
 }

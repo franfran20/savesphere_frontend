@@ -9,22 +9,20 @@ import {
   MOCK_GROUP_LIST,
 } from "@/utils/groupSave";
 import Link from "next/link";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract, useWriteContract } from "wagmi";
 
 export default function GroupSave() {
   const account = useAccount();
 
-  // console.log(account.address);
-  // // it works use fake data to builddd!!!
-  // const topLevelSavingsDetails = useReadContract({
-  //   abi: GROUP_SAVE_ABI,
-  //   address: GROUP_SAVE_CONTRACT_ADDRESS,
-  //   functionName: "getTopLevelSavingsDetails",
-  // });
+  const allGroupSavings = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getAllGroupSavings",
+  });
 
-  // if (topLevelSavingsDetails.isFetched) {
-  //   console.log(topLevelSavingsDetails.data);
-  // }
+  if (allGroupSavings.isFetched) {
+    console.log(allGroupSavings.data);
+  }
   return (
     <main>
       <Navbar />
@@ -42,35 +40,37 @@ export default function GroupSave() {
         </div>
 
         <div className={styles.activeGroupSavings}>
-          {MOCK_GROUP_LIST.map((groupSaving) => {
-            if (groupSaving.members.includes(account.address)) {
-              return (
-                <Link
-                  href={`/groupSave/${groupSaving.groupId}`}
-                  className={styles.groupSaveBox}
-                >
-                  <Image src="/group.png" width="30" height="30" />
+          {account &&
+            allGroupSavings.isFetched &&
+            allGroupSavings.data.map((groupSaving) => {
+              if (groupSaving.members.includes(account.address)) {
+                return (
+                  <Link
+                    href={`/groupSave/${groupSaving.groupId}`}
+                    className={styles.groupSaveBox}
+                  >
+                    <Image src="/group.png" width="30" height="30" />
 
-                  <div className={styles.groupIdAndMembers}>
-                    <div className={styles.subDetails}>
-                      <h4>Group Id</h4>
-                      <p>{groupSaving.groupId}</p>
+                    <div className={styles.groupIdAndMembers}>
+                      <div className={styles.subDetails}>
+                        <h4>Group Id</h4>
+                        <p>{groupSaving.groupId.toString()}</p>
+                      </div>
+
+                      <div className={styles.subDetails}>
+                        <h4>Members</h4>
+                        <p>{groupSaving.members.length}</p>
+                      </div>
                     </div>
 
                     <div className={styles.subDetails}>
-                      <h4>Members</h4>
-                      <p>{groupSaving.members.length}</p>
+                      <h4>Group Save Name</h4>
+                      <p>{groupSaving.name}</p>
                     </div>
-                  </div>
-
-                  <div className={styles.subDetails}>
-                    <h4>Group Save Name</h4>
-                    <p>{groupSaving.name}</p>
-                  </div>
-                </Link>
-              );
-            }
-          })}
+                  </Link>
+                );
+              }
+            })}
         </div>
       </div>
     </main>

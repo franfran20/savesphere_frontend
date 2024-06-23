@@ -9,7 +9,7 @@ import {
   MOCK_GROUP_LIST,
 } from "@/utils/groupSave";
 import Link from "next/link";
-import { useAccount } from "wagmi";
+import { useAccount, useReadContract } from "wagmi";
 import { useState } from "react";
 import { OngoingProposals } from "@/components/OngoingProposals";
 import { CompletedProposals } from "@/components/CompletedProposals";
@@ -19,6 +19,23 @@ import { Members } from "@/components/Members";
 
 export default function SingleGroupSave({ params }) {
   const [selectView, setSelectView] = useState(1);
+
+  const selectedGroupSave = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getGroupSavings",
+    args: [params && params.id],
+  });
+
+  const allGroupProposals = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getAllProposalsForGroup",
+    args: [params && params.id],
+  });
+
+  if (selectedGroupSave.isFetched) console.log(selectedGroupSave.data);
+
   return (
     <main>
       <Navbar />
@@ -31,24 +48,46 @@ export default function SingleGroupSave({ params }) {
         <div className={styles.groupDetails}>
           <div className={styles.singleGroupSaveBox}>
             <h4>Members</h4>
-            <p>{MOCK_GROUP_LIST[0].members.length}</p>
+            <p>
+              {selectedGroupSave.isFetched &&
+                selectedGroupSave.data.members.length}
+            </p>
           </div>
 
           <div className={styles.singleGroupSaveBox}>
             <h4>Tx's Made </h4>
-            <p>{MOCK_GROUP_LIST[1].proposalCount}</p>
+            <p>
+              {selectedGroupSave.isFetched &&
+                selectedGroupSave.data.proposalCount.toString()}
+            </p>
           </div>
 
           <div className={styles.singleGroupSaveBox}>
             <h4>Group Save Name</h4>
-            <p>{MOCK_GROUP_LIST[2].name}</p>
+            <p>{selectedGroupSave.isFetched && selectedGroupSave.data.name}</p>
           </div>
 
           <div className={styles.singleGroupSaveBox}>
             <h4>Balance</h4>
             <div>
               <Image src="/meter.png" width="25" height="25" />
-              <p>{(MOCK_GROUP_LIST[3].amount / 10e18).toFixed(2)}</p>
+              <p>
+                {selectedGroupSave.isFetched &&
+                  selectedGroupSave.data.amount.toString() / 1e18}
+              </p>
+            </div>
+          </div>
+
+          <div className={styles.singleGroupSaveBox}>
+            <h4>Remaining Balance</h4>
+            <div>
+              <Image src="/meter.png" width="25" height="25" />
+              <p>
+                {selectedGroupSave.isFetched &&
+                  (selectedGroupSave.data.amount.toString() -
+                    selectedGroupSave.data.pendingAmount.toString()) /
+                    1e18}
+              </p>
             </div>
           </div>
         </div>
@@ -106,11 +145,11 @@ export default function SingleGroupSave({ params }) {
           </p>
         </div>
 
-        {selectView == 1 && <OngoingProposals />}
-        {selectView == 2 && <CompletedProposals />}
-        {selectView == 3 && <CreateProposal />}
-        {selectView == 4 && <TopUpGroupBalance />}
-        {selectView == 5 && <Members />}
+        {selectView == 1 && <OngoingProposals groupId={params.id} />}
+        {selectView == 2 && <CompletedProposals groupId={params.id} />}
+        {selectView == 3 && <CreateProposal groupId={params.id} />}
+        {selectView == 4 && <TopUpGroupBalance groupId={params.id} />}
+        {selectView == 5 && <Members groupId={params.id} />}
       </div>
     </main>
   );
