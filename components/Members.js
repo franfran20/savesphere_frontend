@@ -1,3 +1,5 @@
+"use client";
+
 import {
   GROUP_SAVE_ABI,
   GROUP_SAVE_CONTRACT_ADDRESS,
