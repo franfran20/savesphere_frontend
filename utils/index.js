@@ -31,4 +31,11 @@ const formatTime = (seconds) => {
 
 const CURRENT_FEE = 10;
 
-module.exports = { MTRG_TOKEN_ADDRESS, formatTime, CURRENT_FEE };
+const APPROVAL_VALUE = 100e18;
+
+module.exports = {
+  MTRG_TOKEN_ADDRESS,
+  formatTime,
+  CURRENT_FEE,
+  APPROVAL_VALUE,
+};

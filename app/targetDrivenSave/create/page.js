@@ -8,9 +8,15 @@ import {
   TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
 } from "@/utils/targetDrivenSave";
 import { useState } from "react";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
-import { MTRG_TOKEN_ADDRESS } from "@/utils";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
+import { APPROVAL_VALUE, MTRG_TOKEN_ADDRESS } from "@/utils";
 import { erc20Abi, maxUint256 } from "viem";
+import { motion } from "framer-motion";
 
 export default function CreateTargetDrivenSave() {
   const [selectedType, setSelectedType] = useState(3);
@@ -28,6 +34,15 @@ export default function CreateTargetDrivenSave() {
     address: account && account.address,
     token: MTRG_TOKEN_ADDRESS,
   });
+
+  const allowance = useReadContract({
+    abi: erc20Abi,
+    address: MTRG_TOKEN_ADDRESS,
+    functionName: "allowance",
+    args: [account && account.address, TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS],
+  });
+
+  console.log(allowance.isFetched && allowance.data);
 
   const handlePageErr = () => {
     if (!pageError) {
@@ -57,18 +72,24 @@ export default function CreateTargetDrivenSave() {
             <div></div>
           </div>
 
-          <button
-            onClick={() => {
-              approveToken({
-                abi: erc20Abi,
-                address: MTRG_TOKEN_ADDRESS,
-                functionName: "approve",
-                args: [TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS, maxUint256],
-              });
-            }}
-          >
-            Approve All &gt;
-          </button>
+          {allowance.isFetched &&
+            allowance.data.toString() < APPROVAL_VALUE && (
+              <div className="approve">
+                <button
+                  onClick={() => {
+                    approveToken({
+                      abi: erc20Abi,
+                      address: MTRG_TOKEN_ADDRESS,
+                      functionName: "approve",
+                      args: [TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS, maxUint256],
+                    });
+                  }}
+                >
+                  Approve All &gt;
+                </button>
+                <p>Please Approve Tokens Once For Smooth Interactions</p>
+              </div>
+            )}
         </div>
 
         <div className={styles.createContainer}>
@@ -224,7 +245,11 @@ export default function CreateTargetDrivenSave() {
             </button>
           </div>
 
-          <div className={styles.createDesignContainer}>
+          <motion.div
+            className={styles.createDesignContainer}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+          >
             <Image src="/3-box.png" width="100" height="100" />
             <h3>We're glad to see you starting a target-driven saving!</h3>
             <p>
@@ -234,7 +259,7 @@ export default function CreateTargetDrivenSave() {
               groceries, or setting aside money for future staff training at
               your company.
             </p>
-          </div>
+          </motion.div>
         </div>
       </div>
     </main>

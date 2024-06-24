@@ -5,8 +5,13 @@ import styles from "../../../styles/groupSave.module.css";
 import { Navbar } from "@/components/Navbar";
 
 import { useState } from "react";
-import { useAccount, useBalance, useWriteContract } from "wagmi";
-import { MTRG_TOKEN_ADDRESS } from "@/utils";
+import {
+  useAccount,
+  useBalance,
+  useReadContract,
+  useWriteContract,
+} from "wagmi";
+import { APPROVAL_VALUE, MTRG_TOKEN_ADDRESS } from "@/utils";
 import { erc20Abi, maxUint256 } from "viem";
 import { GROUP_SAVE_ABI, GROUP_SAVE_CONTRACT_ADDRESS } from "@/utils/groupSave";
 
@@ -26,6 +31,13 @@ export default function CreateGroupSave() {
   const userMTRGBalance = useBalance({
     address: account && account.address,
     token: MTRG_TOKEN_ADDRESS,
+  });
+
+  const allowance = useReadContract({
+    abi: erc20Abi,
+    address: MTRG_TOKEN_ADDRESS,
+    functionName: "allowance",
+    args: [account && account.address, GROUP_SAVE_CONTRACT_ADDRESS],
   });
 
   console.log(members);
@@ -55,6 +67,9 @@ export default function CreateGroupSave() {
     if (pageError.includes("GroupSave__QuorumCantBeGreaterThanMembers")) {
       return "Quorum has to be less than or equal to total members";
     }
+    if (pageError.includes("GroupSave__QurumMustBeGreaterThanOne")) {
+      return "Quorum has to be greater than one";
+    }
 
     console.log(pageError);
   };
@@ -70,18 +85,24 @@ export default function CreateGroupSave() {
             <div></div>
           </div>
 
-          <button
-            onClick={() => {
-              approveToken({
-                abi: erc20Abi,
-                address: MTRG_TOKEN_ADDRESS,
-                functionName: "approve",
-                args: [GROUP_SAVE_CONTRACT_ADDRESS, maxUint256],
-              });
-            }}
-          >
-            Approve All &gt;
-          </button>
+          {allowance.isFetched &&
+            allowance.data.toString() < APPROVAL_VALUE && (
+              <div className="approve">
+                <button
+                  onClick={() => {
+                    approveToken({
+                      abi: erc20Abi,
+                      address: MTRG_TOKEN_ADDRESS,
+                      functionName: "approve",
+                      args: [GROUP_SAVE_CONTRACT_ADDRESS, maxUint256],
+                    });
+                  }}
+                >
+                  Approve All &gt;
+                </button>
+                <p>Please Approve Tokens Once For Smooth Interactions</p>
+              </div>
+            )}
         </div>
 
         <div className={styles.createDetailContainer}>
@@ -129,9 +150,9 @@ export default function CreateGroupSave() {
 
             {quorum && members.length > 0 && (
               <p style={{ marginBottom: "10px" }}>
-                {(quorum / members.length) * 100 > 100
+                {(quorum / (members.length + 1)) * 100 > 100
                   ? 100
-                  : (quorum / members.length) * 100}
+                  : (quorum / (members.length + 1)) * 100}
                 %
               </p>
             )}

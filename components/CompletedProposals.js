@@ -1,21 +1,58 @@
 import React, { useState } from "react";
 import styles from "../styles/groupSave.module.css";
 import {
+  GROUP_SAVE_ABI,
+  GROUP_SAVE_CONTRACT_ADDRESS,
   MOCK_GROUP_LIST,
   MOCK_PROPOSALS_FOR_GROUP_ONE,
 } from "@/utils/groupSave";
 import Image from "next/image";
+import { useAccount, useReadContract } from "wagmi";
 
 export const CompletedProposals = ({ groupId }) => {
   const [selectedProposal, setSelectedProposal] = useState(false);
   const [showRecipients, setShowRecipients] = useState(false);
+  const account = useAccount();
+
+  const allGroupProposals = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getAllProposalsForGroup",
+    args: [groupId],
+  });
+
+  const selectedGroupSave = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getGroupSavings",
+    args: [groupId],
+  });
+
+  const userParticpated = useReadContract({
+    abi: GROUP_SAVE_ABI,
+    address: GROUP_SAVE_CONTRACT_ADDRESS,
+    functionName: "getUserProposalParticipation",
+    args: [
+      account && account.address,
+      groupId,
+      selectedProposal && selectedProposal.proposalId,
+    ],
+  });
+
+  if (allGroupProposals.isFetched) console.log(allGroupProposals.data);
 
   return (
     <div className={styles.proposalContainer}>
       <div className={styles.proposalList}>
-        {MOCK_PROPOSALS_FOR_GROUP_ONE.length > 0 ? (
-          MOCK_PROPOSALS_FOR_GROUP_ONE.map((proposal) => {
-            if (proposal.completed == true)
+        {allGroupProposals.isFetched &&
+        allGroupProposals.data.filter(
+          (proposal) => proposal.completed.toString() != "0"
+        ).length > 0 ? (
+          allGroupProposals.data.map((proposal) => {
+            if (
+              proposal.completed.toString() == "1" ||
+              proposal.completed.toString() == "2"
+            )
               return (
                 <div
                   onClick={() => setSelectedProposal(proposal)}
@@ -28,7 +65,7 @@ export const CompletedProposals = ({ groupId }) => {
                 >
                   <div className={styles.proposalBoxDetails}>
                     <h4>ID</h4>
-                    <p>{proposal.proposalId}</p>
+                    <p>{proposal.proposalId.toString()}</p>
                   </div>
 
                   <div className={styles.proposalBoxDetails}>
@@ -39,7 +76,7 @@ export const CompletedProposals = ({ groupId }) => {
               );
           })
         ) : (
-          <p>No Proposal For This Group</p>
+          <p>No Completed Proposal For This Group</p>
         )}
       </div>
 
@@ -48,12 +85,15 @@ export const CompletedProposals = ({ groupId }) => {
           <div className={styles.multipleDetails}>
             <div className={styles.detailsBox}>
               <h5>Proposal ID</h5>
-              <p>{selectedProposal.proposalId}</p>
+              <p>{selectedProposal.proposalId.toString()}</p>
             </div>
 
             <div className={styles.detailsBox}>
               <h5>Total Members</h5>
-              <p>{MOCK_GROUP_LIST[0].members.length}</p>
+              <p>
+                {selectedGroupSave.isFetched &&
+                  selectedGroupSave.data.members.length}
+              </p>
             </div>
           </div>
 
@@ -66,9 +106,11 @@ export const CompletedProposals = ({ groupId }) => {
             <div className={styles.detailsBox}>
               <h5>Group Requirement</h5>
               <p>
-                {(MOCK_GROUP_LIST[0].quorum /
-                  MOCK_GROUP_LIST[0].members.length) *
-                  100}{" "}
+                {(
+                  (selectedGroupSave.isFetched &&
+                    selectedGroupSave.data.quorum.toString() /
+                      selectedGroupSave.data.members.length) * 100
+                ).toFixed(2)}{" "}
                 %
               </p>
             </div>
@@ -76,9 +118,13 @@ export const CompletedProposals = ({ groupId }) => {
             <div className={styles.detailsBox}>
               <h5>Members Progress</h5>
               <p>
-                {((selectedProposal.accepted + selectedProposal.rejected) /
-                  MOCK_GROUP_LIST[0].members.length) *
-                  100}{" "}
+                {selectedGroupSave.isFetched &&
+                  (
+                    ((parseInt(selectedProposal.accepted.toString()) +
+                      parseInt(selectedProposal.rejected.toString())) /
+                      selectedGroupSave.data.members.length) *
+                    100
+                  ).toFixed(2)}{" "}
                 %
               </p>
             </div>
@@ -86,17 +132,18 @@ export const CompletedProposals = ({ groupId }) => {
             <div className={styles.detailsBox}>
               <h5>Accepted</h5>
               <p>
-                {selectedProposal.accepted} /{" "}
-                {MOCK_GROUP_LIST[0].members.length}
+                {selectedGroupSave.isFetched &&
+                  parseInt(selectedProposal.accepted.toString())}{" "}
+                / {selectedGroupSave.data.members.length}
               </p>
             </div>
 
             <div className={styles.detailsBox}>
               <h5>Rejected</h5>
               <p>
-                {" "}
-                {selectedProposal.rejected} /{" "}
-                {MOCK_GROUP_LIST[0].members.length}
+                {selectedProposal.rejected.toString()} /{" "}
+                {selectedGroupSave.isFetched &&
+                  selectedGroupSave.data.members.length}
               </p>
             </div>
           </div>
@@ -109,7 +156,9 @@ export const CompletedProposals = ({ groupId }) => {
                 <Image src="/meter.png" width="30" height="30" />
                 <p>
                   {selectedProposal.amounts.reduce(
-                    (accumulator, currentValue) => accumulator + currentValue,
+                    (accumulator, currentValue) =>
+                      parseInt(accumulator.toString()) +
+                      parseInt(currentValue.toString()),
                     0
                   ) / 1e18}
                 </p>
@@ -118,7 +167,11 @@ export const CompletedProposals = ({ groupId }) => {
 
             <div className={styles.detailsBox}>
               <h5>Participated</h5>
-              <p>YES</p>
+              <p>
+                {userParticpated.isFetched && userParticpated.data == true
+                  ? "YES"
+                  : "NO"}
+              </p>
             </div>
 
             <div className={styles.detailsBox}>
@@ -150,7 +203,9 @@ export const CompletedProposals = ({ groupId }) => {
               <Image src="/meter.png" width="30" height="30" />
               <p>
                 {selectedProposal.amounts.reduce(
-                  (accumulator, currentValue) => accumulator + currentValue,
+                  (accumulator, currentValue) =>
+                    parseInt(accumulator.toString()) +
+                    parseInt(currentValue.toString()),
                   0
                 ) / 1e18}
               </p>
@@ -170,7 +225,7 @@ export const CompletedProposals = ({ groupId }) => {
 
             <div className={styles.amounts}>
               {selectedProposal.amounts.map((amount) => {
-                return <p>{amount / 1e18}</p>;
+                return <p>{amount.toString() / 1e18}</p>;
               })}
             </div>
           </div>

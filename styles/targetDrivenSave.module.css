@@ -166,6 +166,11 @@
   align-items: center;
 }
 
+.approveAll p {
+  margin-left: 14px;
+  font-size: 13px;
+}
+
 .approveAll button {
   margin-left: 20px;
   background-color: #fff;

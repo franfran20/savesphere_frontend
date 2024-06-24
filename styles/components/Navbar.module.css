@@ -25,3 +25,8 @@
   font-weight: 500;
   color: black;
 }
+
+.navLinks a:hover {
+  font-weight: 600;
+  scale: 1.1;
+}

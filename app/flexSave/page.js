@@ -16,7 +16,12 @@ import {
   useWriteContract,
 } from "wagmi";
 import { useState } from "react";
-import { CURRENT_FEE, formatTime, MTRG_TOKEN_ADDRESS } from "@/utils";
+import {
+  APPROVAL_VALUE,
+  CURRENT_FEE,
+  formatTime,
+  MTRG_TOKEN_ADDRESS,
+} from "@/utils";
 import { erc20Abi, maxUint256 } from "viem";
 
 export default function FlexSave() {
@@ -57,15 +62,26 @@ export default function FlexSave() {
   const userInterestAccrued = useReadContract({
     abi: FLEX_SAVE_ABI,
     address: FLEX_SAVE_CONTRACT_ADDRESS,
-    functionName: "getUserCurrentInterestAccrued",
+    functionName: "getUserCurrentInterestAccrued", //getUserEndInterest, getUserCurrentInterestAccrued
     args: [account && account.address],
   });
+
+  if (userInterestAccrued) {
+    console.log("User Int", userInterestAccrued.data);
+  }
 
   const userSavingDetails = useReadContract({
     abi: FLEX_SAVE_ABI,
     address: FLEX_SAVE_CONTRACT_ADDRESS,
     functionName: "getUserSavings",
     args: [account && account.address],
+  });
+
+  const allowance = useReadContract({
+    abi: erc20Abi,
+    address: MTRG_TOKEN_ADDRESS,
+    functionName: "allowance",
+    args: [account && account.address, FLEX_SAVE_CONTRACT_ADDRESS],
   });
 
   if (userSavingDetails) console.log(userSavingDetails.data);
@@ -93,18 +109,24 @@ export default function FlexSave() {
             <div></div>
           </div>
 
-          <button
-            onClick={() => {
-              approveToken({
-                abi: erc20Abi,
-                address: MTRG_TOKEN_ADDRESS,
-                functionName: "approve",
-                args: [FLEX_SAVE_CONTRACT_ADDRESS, maxUint256],
-              });
-            }}
-          >
-            Approve All &gt;
-          </button>
+          {allowance.isFetched &&
+            allowance.data.toString() < APPROVAL_VALUE && (
+              <div className="approve">
+                <button
+                  onClick={() => {
+                    approveToken({
+                      abi: erc20Abi,
+                      address: MTRG_TOKEN_ADDRESS,
+                      functionName: "approve",
+                      args: [FLEX_SAVE_CONTRACT_ADDRESS, maxUint256],
+                    });
+                  }}
+                >
+                  Approve All &gt;
+                </button>
+                <p>Please Approve Tokens Once For Smooth Interactions</p>
+              </div>
+            )}
         </div>
 
         <div className={styles.saveDetails}>
@@ -250,7 +272,10 @@ export default function FlexSave() {
                 <input
                   placeholder="Time"
                   type="number"
-                  onChange={(e) => setTime(e.target.value)}
+                  onChange={(e) => {
+                    setTime(e.target.value);
+                    setPageError(false);
+                  }}
                 />
 
                 {time && <p>{formatTime(time)}</p>}

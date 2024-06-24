@@ -24,6 +24,10 @@
   border-radius: 18px;
 }
 
+.saveBoxes:hover {
+  scale: 1.05;
+}
+
 .saveBoxes p {
   color: #000;
   font-size: 14px;
@@ -222,6 +226,11 @@
 .approveAll {
   display: flex;
   align-items: center;
+}
+
+.approveAll p {
+  margin-left: 14px;
+  font-size: 13px;
 }
 
 .approveAll button {

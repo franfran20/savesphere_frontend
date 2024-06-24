@@ -39,6 +39,11 @@ textarea:focus {
   outline: none;
 }
 
+.approve {
+  display: flex;
+  align-items: center;
+}
+
 .errorMsg {
   font-size: 13px;
   color: red;

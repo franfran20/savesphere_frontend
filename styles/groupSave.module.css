@@ -17,8 +17,10 @@
   margin-right: 10px;
   width: 22%;
 }
+
 .groupSaveBox:hover {
   background-color: #e3e3e3;
+  border: 0.3px solid #414141;
 }
 
 .groupIdAndMembers {
@@ -453,6 +455,11 @@
 .approveAll {
   display: flex;
   align-items: center;
+}
+
+.approveAll p {
+  margin-left: 14px;
+  font-size: 13px;
 }
 
 .approveAll button {
