@@ -225,6 +225,10 @@ export default function CreateTargetDrivenSave() {
 
             <button
               className="action-btn"
+              disabled={
+                (selectedType == 1 || selectedType == 3) &&
+                targetAmount <= amount
+              }
               onClick={() => {
                 createTargetDrivenSave(
                   {

@@ -60,9 +60,22 @@ textarea:focus {
   margin-top: 8px;
 }
 
+.action-btn:disabled {
+  background-color: #c1c1c1;
+  color: #fff;
+}
+
+.action-btn:disabled:hover {
+  background-color: #c1c1c1;
+  color: #fff;
+  border: none;
+  cursor: default;
+}
+
 .action-btn:hover {
   background-color: #fff;
   color: #000;
+
   border: 0.7px solid #000;
 }
 
