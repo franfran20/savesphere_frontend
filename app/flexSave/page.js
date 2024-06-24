@@ -470,7 +470,10 @@ export default function FlexSave() {
                     <h4>Your Balance</h4>
                     <div>
                       <Image src="/meter.png" height="30" width="30" />
-                      <p>12.089</p>
+                      <p>
+                        {userMTRGBalance.isFetched &&
+                          userMTRGBalance.data.formatted}
+                      </p>
                     </div>
                   </div>
 
