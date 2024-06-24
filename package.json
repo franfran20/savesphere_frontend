@@ -16,9 +16,7 @@
     "react": "^18",
     "react-dom": "^18",
     "viem": "^2.15.1",
-    "wagmi": "^2.10.2"
-  },
-  "devDependencies": {
+    "wagmi": "^2.10.2",
     "encoding": "^0.1.13",
     "pino-pretty": "^11.2.1"
   }
