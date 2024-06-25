@@ -37,7 +37,9 @@ export default function Home() {
         {account.isConnected ? (
           <Link href="/flexSave">Start Saving &gt;</Link>
         ) : (
-          <Link href="/">Learn More &gt;</Link>
+          <Link href="https://github.com/franfran20/savesphere_contracts/blob/master/README.md">
+            Learn More &gt;
+          </Link>
         )}
       </div>
     </main>
