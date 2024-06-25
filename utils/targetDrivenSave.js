@@ -271,6 +271,11 @@ const TARGET_DRIVEN_SAVE_ABI = [
   },
   {
     type: "error",
+    name: "TargetDrivenSave__TargetAmountMustBeGreaterThanStartAmount",
+    inputs: [],
+  },
+  {
+    type: "error",
     name: "TargetDrivenSave__TimeConditionNotSatisfied",
     inputs: [],
   },
@@ -323,7 +328,7 @@ const TARGET_DRIVEN_SAVE_FAKE_DATA = [
 ];
 
 const TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS =
-  "0x5490194Dff63994Ad35AF72a849049A2445AF7C1";
+  "0x36f7c8875836f3C18d188Cb6AE7cFe253218EcA6";
 
 const handleTypeDisplay = (targetDrivenSave) => {
   if (targetDrivenSave.targetAmount != 0 && targetDrivenSave.stopTime == 0) {
