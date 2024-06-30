@@ -14,7 +14,7 @@ import {
   useReadContract,
   useWriteContract,
 } from "wagmi";
-import { APPROVAL_VALUE, MTRG_TOKEN_ADDRESS } from "@/utils";
+import { APPROVAL_VALUE, formatTime, MTRG_TOKEN_ADDRESS } from "@/utils";
 import { erc20Abi, maxUint256 } from "viem";
 import { motion } from "framer-motion";
 
@@ -174,6 +174,10 @@ export default function CreateTargetDrivenSave() {
                 type="number"
                 onChange={(e) => setSavingTime(e.target.value)}
               />
+            )}
+
+            {savingTime && (
+              <p style={{ marginBottom: "13px" }}>{formatTime(savingTime)}</p>
             )}
 
             {(selectedType == 2 || selectedType == 3) && (

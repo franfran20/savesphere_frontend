@@ -152,7 +152,7 @@ export default function CreateGroupSave() {
               <p style={{ marginBottom: "10px" }}>
                 {(quorum / (members.length + 1)) * 100 > 100
                   ? 100
-                  : (quorum / (members.length + 1)) * 100}
+                  : ((quorum / (members.length + 1)) * 100).toFixed(2)}
                 %
               </p>
             )}

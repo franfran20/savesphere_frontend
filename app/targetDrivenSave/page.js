@@ -25,6 +25,7 @@ export default function TargetDrivenSave() {
   const [selectedOption, setSelectedOption] = useState(false);
   const [selectedSave, setSelectedSave] = useState();
   const [topUpAmount, setTopUpAmount] = useState(0);
+  const [pageError, setPageError] = useState(false);
 
   const account = useAccount();
 
@@ -50,9 +51,25 @@ export default function TargetDrivenSave() {
     args: [account && account.address],
   });
 
-  if (topUpError) {
-    console.log(topUpError.message);
-  }
+  const handlePageErr = () => {
+    if (!pageError) {
+      return;
+    }
+
+    if (pageError.includes("insufficient allowance")) {
+      return "Insufficient Token Allowance";
+    }
+    if (
+      pageError.includes("TargetDrivenSave__AmountTargetConditionNotSatisfied")
+    ) {
+      return "Amount Target Not Satisfied!";
+    }
+    if (pageError.includes("TargetDrivenSave__TimeConditionNotSatisfied")) {
+      return "Time Target Not Satisfied!";
+    }
+
+    console.log(pageError);
+  };
 
   return (
     <main>
@@ -254,15 +271,22 @@ export default function TargetDrivenSave() {
                       <button
                         className="action-btn"
                         onClick={() => {
-                          topUpTargetDrivenSave({
-                            abi: TARGET_DRIVEN_SAVE_ABI,
-                            address: TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
-                            functionName: "topUpTargetDrivenSave",
-                            args: [
-                              selectedSave && selectedSave.saveId,
-                              topUpAmount,
-                            ],
-                          });
+                          topUpTargetDrivenSave(
+                            {
+                              abi: TARGET_DRIVEN_SAVE_ABI,
+                              address: TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
+                              functionName: "topUpTargetDrivenSave",
+                              args: [
+                                selectedSave && selectedSave.saveId,
+                                topUpAmount,
+                              ],
+                            },
+                            {
+                              onError(err) {
+                                setPageError(err.message);
+                              },
+                            }
+                          );
                         }}
                       >
                         Top Up
@@ -272,16 +296,32 @@ export default function TargetDrivenSave() {
                 )}
               </div>
 
+              {pageError && (
+                <p
+                  style={{ marginTop: "-25px", marginBottom: "10px" }}
+                  className="errorMsg"
+                >
+                  {handlePageErr()}
+                </p>
+              )}
+
               {selectedSave.completed == false && (
                 <button
                   className="action-btn"
                   onClick={() =>
-                    unlockTargetDrivenSave({
-                      abi: TARGET_DRIVEN_SAVE_ABI,
-                      address: TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
-                      functionName: "unlockTargetDrivenSave",
-                      args: [selectedSave && selectedSave.saveId],
-                    })
+                    unlockTargetDrivenSave(
+                      {
+                        abi: TARGET_DRIVEN_SAVE_ABI,
+                        address: TARGET_DRIVEN_SAVE_CONTRACT_ADDRESS,
+                        functionName: "unlockTargetDrivenSave",
+                        args: [selectedSave && selectedSave.saveId],
+                      },
+                      {
+                        onError(err) {
+                          setPageError(err.message);
+                        },
+                      }
+                    )
                   }
                 >
                   Unlock Savings &gt;
